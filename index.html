@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartão de TODOS – Benefícios e Adesão | Consultor Deivid Curcio</title>
+    
+    <!-- World App Mini App Meta Tags -->
+    <meta name="world-app-meta" content="mini-app">
+    <meta name="world-app-description" content="Cartão de TODOS - Economize em saúde, educação e lazer com verificação World ID">
 
     <!-- ======================= CSS AVANÇADO ======================= -->
     <style>
@@ -170,10 +174,154 @@
             50% { transform: scale(1.07); }
             100% { transform: scale(1); }
         }
+
+        /* WORLD APP INTEGRATION STYLES */
+        .world-app-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .world-app-section h2 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        .world-id-btn {
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px;
+        }
+
+        .world-id-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .world-id-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .world-app-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .world-app-badge img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .verification-status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .verification-status.verified {
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .verification-status.pending {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            color: #ffc107;
+        }
+
+        .world-chain-info {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .world-chain-info h3 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .world-chain-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .world-chain-info li {
+            margin: 5px 0;
+            color: #ccc;
+        }
+
+        .mini-app-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-card h4 {
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #aaa;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* World App environment indicator */
+        .world-app-env-banner {
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .world-app-env-banner.active {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- World App Environment Banner -->
+    <div id="world-app-banner" class="world-app-env-banner">
+        🌍 Executando dentro do World App
+    </div>
 
     <header>
         <h1>Cartão de TODOS</h1>
@@ -183,6 +331,7 @@
     <nav>
         <a href="#beneficios">Benefícios</a>
         <a href="#como-funciona">Como Funciona</a>
+        <a href="#world-app">World App</a>
         <a href="#faq">FAQ</a>
         <a href="#contato">Contato</a>
     </nav>
@@ -219,6 +368,64 @@
             <li>Academias, viagens, pet shops e lazer</li>
         </ul>
 
+        <!-- ======================= WORLD APP INTEGRATION ======================= -->
+        <div id="world-app" class="world-app-section">
+            <h2>🌍 Integração com World App</h2>
+            
+            <div class="world-app-badge">
+                <span style="font-size: 20px;">🌍</span>
+                <span>Mini App compatível com World App</span>
+            </div>
+
+            <p>Verifique sua identidade com World ID para obter benefícios exclusivos e descontos adicionais!</p>
+
+            <!-- World ID Verification Status -->
+            <div id="verification-status" class="verification-status pending">
+                ⏳ Verificação World ID pendente
+            </div>
+
+            <!-- World ID Verification Button -->
+            <button id="world-id-verify-btn" class="world-id-btn" onclick="initiateWorldIDVerification()">
+                🔐 Verificar com World ID
+            </button>
+
+            <!-- Mini App Features -->
+            <div class="mini-app-features">
+                <div class="feature-card">
+                    <h4>🛡️ Prova de Humanidade</h4>
+                    <p>Verificação segura que você é uma pessoa real</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 Benefícios Exclusivos</h4>
+                    <p>Descontos adicionais para usuários verificados</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔗 World Chain</h4>
+                    <p>Transações seguras na blockchain</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 Carteira Digital</h4>
+                    <p>Integração com carteira World App</p>
+                </div>
+            </div>
+
+            <!-- World Chain Information -->
+            <div class="world-chain-info">
+                <h3>⛓️ Sobre World Chain</h3>
+                <p>O Cartão de TODOS está explorando a integração com World Chain, a blockchain da Worldcoin, oferecendo:</p>
+                <ul>
+                    <li>Transações rápidas e seguras</li>
+                    <li>Gas gratuito para usuários verificados com World ID</li>
+                    <li>Compatibilidade total com Ethereum (EVM)</li>
+                    <li>Prioridade de blockspace para humanos verificados</li>
+                </ul>
+                <p style="margin-top: 15px; color: #888; font-size: 14px;">
+                    📚 Para desenvolvedores: Consulte a <a href="https://docs.world.org/world-chain/developers/deploy" target="_blank" style="color: #00d4ff;">documentação World Chain</a>
+                </p>
+            </div>
+        </div>
+        <!-- ======================= FIM WORLD APP INTEGRATION ======================= -->
+
         <h2 id="faq">Perguntas Frequentes</h2>
 
         <h3>É plano de saúde?</h3>
@@ -250,19 +457,231 @@
     <footer>
         © 2025 – Criado por Deivid Curcio | Consultor Cartão de TODOS  
         <br>WhatsApp: (22) 99960-4947
+        <br><small style="color: #999;">Integrado com World App | <a href="https://docs.world.org/mini-apps" target="_blank" style="color: #00d4ff;">World Developer Docs</a></small>
     </footer>
 
-    <!-- ======================= JAVASCRIPT ======================= -->
+    <!-- ======================= WORLD APP MINIKIT SDK ======================= -->
+    <script type="module">
+        // Import MiniKit from Worldcoin CDN
+        // Using the latest MiniKit SDK for World App integration
+        // Reference: https://docs.world.org/mini-apps/quick-start/installing
+        
+        import { MiniKit } from 'https://cdn.jsdelivr.net/npm/@worldcoin/minikit-js@1.8.0/+esm';
+
+        // Initialize MiniKit and check World App environment
+        window.MiniKit = MiniKit;
+        
+        // =====================================================================
+        // IMPORTANT: Configuration for World ID verification
+        // Before deploying to production:
+        // 1. Register your app at https://developer.world.org
+        // 2. Replace 'appId' with your production App ID
+        // 3. Create an action in the Developer Portal and update 'actionId'
+        // 4. Update 'signal' if needed for your verification context
+        // =====================================================================
+        window.WorldAppConfig = {
+            appId: 'app_staging_cartaodetodos', // TODO: Replace with production App ID from World Developer Portal
+            actionId: 'verify_user',            // Action ID configured in Developer Portal
+            verificationLevel: 'orb',           // 'orb' for maximum security, 'device' for lighter verification
+            signal: 'cartao_de_todos_user'      // Context signal - customize per verification scenario
+        };
+
+        // Check if running inside World App
+        function checkWorldAppEnvironment() {
+            const isInWorldApp = MiniKit.isInstalled();
+            const banner = document.getElementById('world-app-banner');
+            const verifyBtn = document.getElementById('world-id-verify-btn');
+            
+            if (isInWorldApp) {
+                banner.classList.add('active');
+                console.log('✅ Running inside World App');
+                
+                // Enable full World ID verification in World App
+                if (verifyBtn) {
+                    verifyBtn.textContent = '🔐 Verificar com World ID';
+                    verifyBtn.disabled = false;
+                }
+            } else {
+                console.log('ℹ️ Running outside World App - Some features may be limited');
+                
+                // Still allow verification via redirect for external browsers
+                if (verifyBtn) {
+                    verifyBtn.textContent = '🔐 Verificar com World ID (Abrir World App)';
+                }
+            }
+            
+            return isInWorldApp;
+        }
+
+        // Initialize World ID verification
+        window.initiateWorldIDVerification = async function() {
+            const verifyBtn = document.getElementById('world-id-verify-btn');
+            const statusDiv = document.getElementById('verification-status');
+            
+            try {
+                verifyBtn.disabled = true;
+                verifyBtn.textContent = '⏳ Verificando...';
+                statusDiv.className = 'verification-status pending';
+                statusDiv.textContent = '⏳ Processando verificação...';
+
+                const isInWorldApp = MiniKit.isInstalled();
+                
+                if (isInWorldApp) {
+                    // Use MiniKit for in-app verification
+                    // Reference: https://docs.world.org/mini-apps/commands/verify
+                    const { finalPayload } = await MiniKit.commandsAsync.verify({
+                        action: window.WorldAppConfig.actionId,
+                        verification_level: window.WorldAppConfig.verificationLevel,
+                        signal: window.WorldAppConfig.signal // Configurable context signal
+                    });
+
+                    if (finalPayload.status === 'success') {
+                        // Verification successful
+                        handleVerificationSuccess(finalPayload);
+                    } else {
+                        throw new Error(finalPayload.error_code || 'Verification failed');
+                    }
+                } else {
+                    // Redirect to World App for verification (external browser flow)
+                    // Using World ID Web Widget fallback
+                    showExternalVerificationModal();
+                }
+            } catch (error) {
+                console.error('World ID verification error:', error);
+                handleVerificationError(error);
+            }
+        };
+
+        // Handle successful verification
+        function handleVerificationSuccess(payload) {
+            const statusDiv = document.getElementById('verification-status');
+            const verifyBtn = document.getElementById('world-id-verify-btn');
+            
+            statusDiv.className = 'verification-status verified';
+            statusDiv.innerHTML = '✅ Verificado com World ID! Você é elegível para benefícios exclusivos.';
+            
+            verifyBtn.textContent = '✓ Verificado';
+            verifyBtn.disabled = true;
+            verifyBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
+            
+            // Store only non-sensitive verification status in sessionStorage
+            // Note: For production, implement server-side verification persistence
+            // Do NOT store nullifier_hash or other sensitive proof data client-side
+            sessionStorage.setItem('worldIdVerified', 'true');
+            sessionStorage.setItem('worldIdVerificationLevel', payload.verification_level || 'unknown');
+            sessionStorage.setItem('worldIdVerifiedAt', new Date().toISOString());
+            
+            console.log('✅ World ID verification successful');
+            
+            // Show rewards eligibility message
+            showRewardsEligibility();
+        }
+
+        // Handle verification error
+        function handleVerificationError(error) {
+            const statusDiv = document.getElementById('verification-status');
+            const verifyBtn = document.getElementById('world-id-verify-btn');
+            
+            statusDiv.className = 'verification-status pending';
+            statusDiv.textContent = '❌ Erro na verificação. Tente novamente.';
+            
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = '🔐 Tentar novamente';
+            
+            console.error('World ID verification error:', error);
+        }
+
+        // Show modal for external browser verification
+        function showExternalVerificationModal() {
+            const verifyBtn = document.getElementById('world-id-verify-btn');
+            const statusDiv = document.getElementById('verification-status');
+            
+            // For external browsers, provide instructions to use World App
+            statusDiv.className = 'verification-status pending';
+            statusDiv.innerHTML = `
+                📱 Para verificação completa com World ID:<br>
+                <small>
+                    1. Baixe o <a href="https://worldcoin.org/download" target="_blank" style="color: #00d4ff;">World App</a><br>
+                    2. Crie sua World ID<br>
+                    3. Acesse este site pelo World App
+                </small>
+            `;
+            
+            verifyBtn.disabled = false;
+            verifyBtn.textContent = '📱 Baixar World App';
+            verifyBtn.onclick = function() {
+                window.open('https://worldcoin.org/download', '_blank');
+            };
+        }
+
+        // Show rewards eligibility message for verified users
+        function showRewardsEligibility() {
+            const worldAppSection = document.getElementById('world-app');
+            
+            const rewardsDiv = document.createElement('div');
+            rewardsDiv.style.cssText = `
+                background: linear-gradient(135deg, #00ff88, #00cc6a);
+                color: #000;
+                padding: 20px;
+                border-radius: 15px;
+                margin-top: 20px;
+                text-align: center;
+                font-weight: bold;
+            `;
+            rewardsDiv.innerHTML = `
+                🎉 Parabéns! Você está elegível para recompensas!<br>
+                <small style="font-weight: normal;">
+                    Como usuário verificado, você tem acesso a descontos adicionais e benefícios exclusivos do Cartão de TODOS.
+                </small>
+            `;
+            
+            worldAppSection.appendChild(rewardsDiv);
+        }
+
+        // Check for existing verification on page load
+        // Note: Uses sessionStorage so verification expires when browser session ends
+        function checkExistingVerification() {
+            const isVerified = sessionStorage.getItem('worldIdVerified') === 'true';
+            
+            if (isVerified) {
+                const statusDiv = document.getElementById('verification-status');
+                const verifyBtn = document.getElementById('world-id-verify-btn');
+                
+                statusDiv.className = 'verification-status verified';
+                statusDiv.textContent = '✅ Verificado com World ID!';
+                
+                verifyBtn.textContent = '✓ Já verificado';
+                verifyBtn.disabled = true;
+                verifyBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkWorldAppEnvironment();
+            checkExistingVerification();
+        });
+
+        // Also run immediately in case DOM is already loaded
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            checkWorldAppEnvironment();
+            checkExistingVerification();
+        }
+    </script>
+
+    <!-- ======================= JAVASCRIPT ORIGINAL ======================= -->
     <script>
         // Rolagem suave do menu
         document.querySelectorAll("nav a").forEach(link => {
             link.addEventListener("click", e => {
                 e.preventDefault();
                 const alvo = document.querySelector(link.getAttribute("href"));
-                window.scrollTo({
-                    top: alvo.offsetTop - 20,
-                    behavior: "smooth"
-                });
+                if (alvo) {
+                    window.scrollTo({
+                        top: alvo.offsetTop - 20,
+                        behavior: "smooth"
+                    });
+                }
             });
         });
     </script>
