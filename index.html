@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartão de TODOS – Benefícios e Adesão | Consultor Deivid Curcio</title>
+
+    <!-- ======================= CSS AVANÇADO ======================= -->
+    <style>
+        :root {
+            --cor-primaria: #0066cc;
+            --cor-secundaria: #00b300;
+            --cor-fundo: #f7f7f7;
+            --cor-texto: #333;
+            --cor-branco: #fff;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.7;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--cor-primaria);
+            color: var(--cor-branco);
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        /* MENU */
+        nav {
+            background: var(--cor-primaria);
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--cor-branco);
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffdd00;
+        }
+
+        /* CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: var(--cor-branco);
+            margin-top: 20px;
+            border-radius: 10px;
+            animation: fadeIn 1s ease;
+        }
+
+        .image-banner {
+            width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--cor-primaria);
+            margin-top: 25px;
+        }
+
+        h3 {
+            color: #004c99;
+        }
+
+        /* CTA */
+        .cta {
+            background: var(--cor-secundaria);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cta:hover {
+            background: #009926;
+            transform: scale(1.03);
+        }
+
+        .cta a {
+            color: var(--cor-branco);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* BOTÃO WHATSAPP FLUTUANTE */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25d366;
+            color: white;
+            padding: 18px 20px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            background: #1ebe57;
+        }
+
+        .whatsapp-btn img {
+            width: 28px;
+            margin-right: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: #eee;
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Cartão de TODOS</h1>
+        <p>Economize em saúde, educação e lazer – Atendimento com Deivid Curcio</p>
+    </header>
+
+    <nav>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#como-funciona">Como Funciona</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="container">
+
+        <img src="https://cartaodetodosrio.com.br/wp-content/uploads/2022/07/logo-original-1024x266.png" 
+             alt="Cartão de TODOS" class="image-banner">
+
+        <h2 id="como-funciona">Como funciona o Cartão de TODOS?</h2>
+        <p>
+            O Cartão de TODOS oferece descontos em consultas médicas, exames,
+            odontologia, cursos, lazer, farmácias e muito mais — tudo por uma mensalidade acessível.
+        </p>
+
+        <img src="https://blog.cartaodetodos.com.br/wp-content/uploads/2022/03/Consulta-medica.jpg" 
+             class="image-banner" alt="Consulta médica com desconto">
+
+        <h3>Passo a passo para usar:</h3>
+        <ul>
+            <li>Faça o cadastro online</li>
+            <li>Pague a mensalidade</li>
+            <li>Receba o cartão digital</li>
+            <li>Use nos estabelecimentos parceiros</li>
+        </ul>
+
+        <h2 id="beneficios">Principais Benefícios</h2>
+        <ul>
+            <li>Consultas médicas acessíveis</li>
+            <li>Exames com valores reduzidos</li>
+            <li>Odontologia com preços especiais</li>
+            <li>Descontos em farmácias</li>
+            <li>Cursos, faculdades e idiomas</li>
+            <li>Academias, viagens, pet shops e lazer</li>
+        </ul>
+
+        <h2 id="faq">Perguntas Frequentes</h2>
+
+        <h3>É plano de saúde?</h3>
+        <p>Não. É um cartão de descontos.</p>
+
+        <h3>Tem carência?</h3>
+        <p>Não. A maioria dos serviços é liberada imediatamente.</p>
+
+        <h3>Posso incluir dependentes?</h3>
+        <p>Sim! A família inteira pode usar.</p>
+
+        <h2 id="contato">Fale comigo para adesão</h2>
+
+        <div class="cta">
+            <a href="https://wa.me/5522999604947" target="_blank">
+                💬 Fale comigo no WhatsApp: (22) 99960-4947
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2025 – Criado por Deivid Curcio | Consultor Cartão de TODOS  
+        <br>WhatsApp: (22) 99960-4947
+    </footer>
+
+    <!-- ======================= JAVASCRIPT ======================= -->
+    <script>
+        // Rolagem suave do menu
+        document.querySelectorAll("nav a").forEach(link => {
+            link.addEventListener("click", e => {
+                e.preventDefault();
+                const alvo = document.querySelector(link.getAttribute("href"));
+                window.scrollTo({
+                    top: alvo.offsetTop - 20,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+    <!-- BOTÃO FLUTUANTE WHATSAPP -->
+    <a class="whatsapp-btn" href="https://wa.me/5522999604947" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+        Fale comigo
+    </a>
+
+</body>
+</html>
