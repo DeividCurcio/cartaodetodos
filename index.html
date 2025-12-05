@@ -373,7 +373,7 @@
             <h2>🌍 Integração com World App</h2>
             
             <div class="world-app-badge">
-                <img src="https://worldcoin.org/favicon.ico" alt="World App">
+                <span style="font-size: 20px;">🌍</span>
                 <span>Mini App compatível com World App</span>
             </div>
 
@@ -471,13 +471,19 @@
         // Initialize MiniKit and check World App environment
         window.MiniKit = MiniKit;
         
-        // Configuration for World ID verification
-        // Note: Replace with your actual App ID from World Developer Portal
-        // Register at: https://developer.world.org
+        // =====================================================================
+        // IMPORTANT: Configuration for World ID verification
+        // Before deploying to production:
+        // 1. Register your app at https://developer.world.org
+        // 2. Replace 'appId' with your production App ID
+        // 3. Create an action in the Developer Portal and update 'actionId'
+        // 4. Update 'signal' if needed for your verification context
+        // =====================================================================
         window.WorldAppConfig = {
-            appId: 'app_staging_cartaodetodos', // Replace with your actual App ID
-            actionId: 'verify_user',            // Custom action for user verification
-            verificationLevel: 'orb'            // 'orb' for maximum security, 'device' for lighter verification
+            appId: 'app_staging_cartaodetodos', // TODO: Replace with production App ID from World Developer Portal
+            actionId: 'verify_user',            // Action ID configured in Developer Portal
+            verificationLevel: 'orb',           // 'orb' for maximum security, 'device' for lighter verification
+            signal: 'cartao_de_todos_user'      // Context signal - customize per verification scenario
         };
 
         // Check if running inside World App
@@ -526,7 +532,7 @@
                     const { finalPayload } = await MiniKit.commandsAsync.verify({
                         action: window.WorldAppConfig.actionId,
                         verification_level: window.WorldAppConfig.verificationLevel,
-                        signal: 'cartao_de_todos_user' // Optional signal for additional context
+                        signal: window.WorldAppConfig.signal // Configurable context signal
                     });
 
                     if (finalPayload.status === 'success') {
@@ -558,15 +564,14 @@
             verifyBtn.disabled = true;
             verifyBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
             
-            // Store verification status
-            localStorage.setItem('worldIdVerified', 'true');
-            localStorage.setItem('worldIdProof', JSON.stringify({
-                nullifier_hash: payload.nullifier_hash,
-                verification_level: payload.verification_level,
-                timestamp: new Date().toISOString()
-            }));
+            // Store only non-sensitive verification status in sessionStorage
+            // Note: For production, implement server-side verification persistence
+            // Do NOT store nullifier_hash or other sensitive proof data client-side
+            sessionStorage.setItem('worldIdVerified', 'true');
+            sessionStorage.setItem('worldIdVerificationLevel', payload.verification_level || 'unknown');
+            sessionStorage.setItem('worldIdVerifiedAt', new Date().toISOString());
             
-            console.log('✅ World ID verification successful:', payload);
+            console.log('✅ World ID verification successful');
             
             // Show rewards eligibility message
             showRewardsEligibility();
@@ -634,8 +639,9 @@
         }
 
         // Check for existing verification on page load
+        // Note: Uses sessionStorage so verification expires when browser session ends
         function checkExistingVerification() {
-            const isVerified = localStorage.getItem('worldIdVerified') === 'true';
+            const isVerified = sessionStorage.getItem('worldIdVerified') === 'true';
             
             if (isVerified) {
                 const statusDiv = document.getElementById('verification-status');
